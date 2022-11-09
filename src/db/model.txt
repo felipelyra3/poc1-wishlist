@@ -1,0 +1,36 @@
+CREATE TABLE "games" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar(255) NOT NULL UNIQUE,
+	"companyId" integer REFERENCES "companies"("id") NOT NULL,
+	"genreId" integer REFERENCES "genres"("id") NOT NULL
+);
+
+
+
+CREATE TABLE "companies" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar(255) NOT NULL UNIQUE
+);
+
+
+
+CREATE TABLE "genres" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"genre" varchar(255) NOT NULL
+);
+
+
+
+CREATE TABLE "users" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL UNIQUE
+);
+
+
+
+CREATE TABLE "gamesIOwn" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"userId" integer REFERENCES "users"("id") NOT NULL,
+	"gameId" integer REFERENCES "games"("id") NOT NULL
+);
