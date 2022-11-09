@@ -35,4 +35,17 @@ async function GamesIOwnParamsValidation(req: Request, res: Response, next: Next
     next();
 }
 
-export { AddGameIOwnSchemaValidation, GamesIOwnParamsValidation };
+async function ValidateIfUserExists(req: Request, res: Response, next: NextFunction) {
+    const userId = Number(req.body.userId);
+    const searchUserById = (await addGameIOwnRepository.VerifyIfUserIdExists(userId)).rows;
+
+    if (searchUserById.length <= 0) {
+        res.status(401).send("This user does not exists");
+        return;
+    }
+
+    res.locals.body = req.body;
+    next();
+}
+
+export { AddGameIOwnSchemaValidation, GamesIOwnParamsValidation, ValidateIfUserExists };

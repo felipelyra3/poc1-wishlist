@@ -9,7 +9,7 @@ async function AddUser(req: Request, res: Response) {
 async function UpdateUserName(req: Request, res: Response) {
     const userId = Number(req.params.id);
     await addUserRepository.updateUserName(res.locals.body.name, userId);
-    res.sendStatus(200);
+    res.sendStatus(204);
 }
 
 export { AddUser, UpdateUserName };
